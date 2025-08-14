@@ -3,8 +3,9 @@ import './App.css';
 import io from 'socket.io-client';
 import Editor from '@monaco-editor/react'
 import { useEffect } from 'react';
+import {v4 as uuid} from "uuid";
 
-const socket = io("https://collabcode-1b6w.onrender.com");
+const socket = io("http://localhost:5000"); //https://collabcode-1b6w.onrender.com
 
 const App = () => {
   const [joined, setJoined] = useState(false);
@@ -17,6 +18,7 @@ const App = () => {
   const [typing, setTyping] = useState("")
   const [output, setOutput] = useState("")
   const [version, setVersion] = useState("*")
+  const [userInput, setUserInput] = useState("")
 
 
   useEffect(()=>{
@@ -98,7 +100,12 @@ const App = () => {
   }
 
   const runCode = ()=>{
-    socket.emit("compileCode", {code, roomId, language, version})
+    socket.emit("compileCode", {code, roomId, language, version, input:userInput})
+  }
+
+  const createRoomId = ()=>{
+    const roomId = uuid();
+    setRoomId(roomId)
   }
 
   if(!joined){
@@ -106,6 +113,7 @@ const App = () => {
       <div className="join-form">
         <h1>Join Code Room</h1>
         <input type="text" placeholder='Room id' value={roomId} onChange={e=>setRoomId(e.target.value)} />
+        <button onClick={createRoomId}>Create Id</button>
         <input type="text" placeholder='Your Name' value={userName} onChange={e=>setUserName(e.target.value)} />
         <button onClick={joinRoom}>Join Room</button>
       </div>
@@ -155,6 +163,7 @@ const App = () => {
           }
         }
         />
+        <textarea className='input-console' value={userInput} onChange={e=>setUserInput(e.target.value)} placeholder='Enter input here...'></textarea>
         <button className='run-btn' onClick={runCode}>Execute</button>
         <textarea className='output-console' value={output} readOnly placeholder='Output will appear here....'></textarea>
       </div>
