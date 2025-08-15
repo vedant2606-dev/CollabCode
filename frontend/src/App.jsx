@@ -156,7 +156,7 @@ int main() {
     return <div className='join-container'>
       <div className="join-form">
         <div className="brand-header">
-  <img src="./public/logo.png" alt="CollabCode Logo" className="brand-logo" />
+  <img src="/logo.png" alt="CollabCode Logo" className="brand-logo" />
   <span className="brand-name">CollabCode</span>
 </div>
         <h1>Join Code Room</h1>
