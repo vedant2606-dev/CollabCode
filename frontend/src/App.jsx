@@ -175,7 +175,7 @@ int main() {
     <div className='editor-container'>
       <div className="sidebar">
          <div className="brand-header">
-  <img src="./public/logo.png" alt="CollabCode Logo" className="brand-logo" />
+  <img src="/logo.png" alt="CollabCode Logo" className="brand-logo" />
   <span className="brand-name">CollabCode</span>
 </div>
         <div className="room-info">
